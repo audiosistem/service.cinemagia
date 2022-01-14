@@ -30,7 +30,7 @@ def log(msg):
         xbmc.log("### [%s]: %s" % (__plugin__,'ERROR LOG',), level=loginfo )
 
 def showMessage(heading, message, times=5000, forced=True):
-    if forced or not getSettingAsBool('disable_notifications'):
+    if forced:
         xbmc.executebuiltin('Notification(%s, %s, %s, %s)' % (
             heading.replace('"', "'"), message.replace('"', "'"), times, icon))
 
