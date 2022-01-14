@@ -1,3 +1,7 @@
+1.0.1 14.01.2022
+1. Added option for epg extracting progress
+2. Added option for notify when starting and finish extracting EPG
+
 1.0.0 09.01.2022
 only for kodi 19 and up
 1. added different url for parsing

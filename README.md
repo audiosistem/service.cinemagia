@@ -5,7 +5,7 @@ script.tvguide.fullscreen addon
 https://github.com/primaeval/script.tvguide.fullscreen
  or any addon that supports loading epg from xml file or url  
  
-You can access the xml file from /home/user/.kodi/userdata/addon_data/service.cinemagia/tvxml.xml  
+You can access the xml file from special://userdata/addon_data/service.cinemagia/tvxml.xml  
   or from http://localhost:8063/epg  
   or from http://yourip:8063/epg   
 You can choose channels to be scrapped for epg, from settings.  

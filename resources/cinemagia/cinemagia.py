@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as md
 import re
-from resources.lib.functions import log
+from resources.lib.functions import log, showMessage
 
 main_site = 'www.cinemagia.ro'
 main_url = 'https://%s/program-tv/' % main_site
@@ -41,8 +41,8 @@ class Channels():
             window = ChannelsXML('channel_list.xml', addonpath, 'Default', channels=channels)
             action, code = window.run()
             del window
-            log('action')
-            log(action)
+            #log('action')
+            #log(action)
 
 class Cinemagia():
     url = '%spost/' % main_url
@@ -59,7 +59,7 @@ class Cinemagia():
         self.days=kwargs.get('days')
         self.epg_details=kwargs.get('epg_details')
 
-    def execute(self, dlg=None):
+    def execute(self, dlg=None, notify=False):
         tv = ET.Element('tv')
         tv.set('generator-info-name', self.generator)
         tv.set('source-info-url', self.url)
@@ -83,6 +83,8 @@ class Cinemagia():
             outfile.write(newxml.toprettyxml(indent='\t',newl='\n'))
         if(dlg):
             dlg.close()
+        if notify:
+            showMessage('Cinemagia', 'EPG extraction finished')
         #tree = ET.ElementTree(tv)
         #tree.write(self.filePath, encoding='utf-8', xml_declaration=True)
     def scrapEpg(self, url, tv, channelName):
