@@ -1,3 +1,6 @@
+1.0.3 15.01.2021
+1. replace urllib with requests to proper disable https certificate verification
+
 1.0.1 14.01.2022
 1. Added option for epg extracting progress
 2. Added option for notify when starting and finish extracting EPG

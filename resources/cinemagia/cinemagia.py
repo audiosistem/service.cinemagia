@@ -1,16 +1,10 @@
-try: 
-    import urllib2
-    py3 = False
-except:
-    import urllib.request as urllib2
-    py3 = True
-# import urllib.request
+import re
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as md
-import re
 from resources.lib.functions import log, showMessage
+import requests
 
 main_site = 'www.cinemagia.ro'
 main_url = 'https://%s/program-tv/' % main_site
@@ -28,9 +22,8 @@ class Channels():
     
     def get(self):
         url = main_url
-        req = urllib2.Request(url, None, headers)
-        response = urllib2.urlopen(req)
-        html = response.read().decode()
+        req = requests.get(url, headers=headers, verify=False)
+        html = req.content.decode()
         regex = '''<li class="station-container">.*?href="{0}(.*?)/".*?>(.*?)<'''.format(url)
         channels = re.findall(regex, html, re.DOTALL)
         if channels:
@@ -90,13 +83,8 @@ class Cinemagia():
     def scrapEpg(self, url, tv, channelName):
         #print(url)
 
-        req = urllib2.Request(url, None, self.headers)
-        response = urllib2.urlopen(req)
-        html = response.read().decode()
-        # request = urllib.request.Request(url, None, self.headers)
-        # with urllib.request.urlopen(request) as response:
-        #   html = response.read()
-        # print(html)
+        req = requests.get(url, headers=self.headers, verify=False)
+        html = req.content.decode()
 
         currentDate = datetime.now()
         k = 0
@@ -182,12 +170,8 @@ class Cinemagia():
         if self.epg_details == 'true':
             if titleLinkNode:
                 url = titleLinkNode['href']
-                req = urllib2.Request(url, None, self.headers)
-                response = urllib2.urlopen(req)
-                html = response.read().decode()
-                # request = urllib.request.Request(url, None, self.headers)
-                # with urllib.request.urlopen(request) as response:
-                #   html = response.read()
+                req = requests.get(url, None, headers=self.headers, verify=False)
+                html = req.content.decode()
 
                 soup = BeautifulSoup(html, "html.parser")
 
